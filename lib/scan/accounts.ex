@@ -7,6 +7,7 @@ defmodule Scan.Accounts do
   alias Scan.Repo
 
   alias Scan.Accounts.User
+  alias Scan.Accounts.Camera
 
   def get_user!(id), do: Repo.get!(User, id)
   def get_resource_by_id(id), do: Repo.get(User, id)
@@ -25,5 +26,14 @@ defmodule Scan.Accounts do
       nil -> :error
       user -> {:ok, user}
     end
+  end
+
+  @doc """
+  camera
+  """
+  def create_camera(params) do
+    params
+    |> Camera.create_changeset()
+    |> Repo.insert()
   end
 end

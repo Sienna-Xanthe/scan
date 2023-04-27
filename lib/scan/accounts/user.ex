@@ -9,15 +9,8 @@ defmodule Scan.Accounts.User do
     field :password, :string, virtual: true
     field :hash_password, :string
 
-    has_many :cameras, Scan.Accounts.Camera
+    has_many :camera, Scan.Accounts.Camera
     timestamps()
-  end
-
-  @doc false
-  def changeset(user, attrs) do
-    user
-    |> cast(attrs, [:email, :hash_password])
-    |> validate_required([:email, :hash_password])
   end
 
   def signup_changeset(params) do

@@ -32,4 +32,10 @@ defmodule ScanWeb.AccountController do
         raise ErrorResponse.Unauthorized, message: "Email or password incorrect"
     end
   end
+
+  def current(conn, %{}) do
+    conn
+    |> put_status(:ok)
+    |> render(:show, user: conn.assigns[:user])
+  end
 end

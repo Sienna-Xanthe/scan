@@ -5,10 +5,20 @@ defmodule ScanWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug ScanWeb.Auth.Pipeline
+    plug ScanWeb.Auth.SetAccount
+  end
+
   scope "/api", ScanWeb do
     pipe_through :api
     post "/accounts/signup", AccountController, :signup
     post "/accounts/signin", AccountController, :signin
+  end
+
+  scope "/api", ScanWeb do
+    pipe_through [:api, :auth]
+    get "/accounts/current", AccountController, :current
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
