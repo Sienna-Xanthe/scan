@@ -38,4 +38,12 @@ defmodule ScanWeb.AccountController do
     |> put_status(:ok)
     |> render(:show, user: conn.assigns[:user])
   end
+
+  def create_camera(conn, %{"camera" => params}) do
+    with {:ok, camera} <- Accounts.create_camera(params) do
+      conn
+      |> put_status(:created)
+      |> render(:show_camera, camera: camera)
+    end
+  end
 end
