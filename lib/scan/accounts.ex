@@ -9,4 +9,10 @@ defmodule Scan.Accounts do
   alias Scan.Accounts.User
 
   def get_user!(id), do: Repo.get!(User, id)
+
+  def create(params) do
+    params
+    |> User.signup_changeset()
+    |> Repo.insert()
+  end
 end

@@ -7,6 +7,7 @@ defmodule ScanWeb.Router do
 
   scope "/api", ScanWeb do
     pipe_through :api
+    post "/accounts/signup", AccountController, :signup
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
