@@ -38,6 +38,17 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :scan, ScanWeb.Auth.Guardian,
+  issuer: "scan",
+  secret_key: "SWJ5TkptJ8/18CT9V3LLkDOjugmLx4UoHi1j8L8lV8CUT8LSv6s81d9VllpBUk3/"
+
+# Use Guardian DB for storing tokens in Phoenix
+config :guardian, Guardian.DB,
+  repo: Scan.Repo,
+  schema_name: "guardian_tokens",
+  sweep_interval: 60
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
