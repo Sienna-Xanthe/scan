@@ -8,6 +8,7 @@ defmodule Scan.Accounts.User do
     field :email, :string
     field :hash_password, :string
 
+    has_many :cameras, Scan.Accounts.Camera
     timestamps()
   end
 

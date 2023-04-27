@@ -58,4 +58,120 @@ defmodule Scan.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
   end
+
+  describe "cameras" do
+    alias Scan.Accounts.Camera
+
+    import Scan.AccountsFixtures
+
+    @invalid_attrs %{camera_address: nil, camera_password: nil, camera_url: nil}
+
+    test "list_cameras/0 returns all cameras" do
+      camera = camera_fixture()
+      assert Accounts.list_cameras() == [camera]
+    end
+
+    test "get_camera!/1 returns the camera with given id" do
+      camera = camera_fixture()
+      assert Accounts.get_camera!(camera.id) == camera
+    end
+
+    test "create_camera/1 with valid data creates a camera" do
+      valid_attrs = %{camera_address: "some camera_address", camera_password: "some camera_password", camera_url: "some camera_url"}
+
+      assert {:ok, %Camera{} = camera} = Accounts.create_camera(valid_attrs)
+      assert camera.camera_address == "some camera_address"
+      assert camera.camera_password == "some camera_password"
+      assert camera.camera_url == "some camera_url"
+    end
+
+    test "create_camera/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_camera(@invalid_attrs)
+    end
+
+    test "update_camera/2 with valid data updates the camera" do
+      camera = camera_fixture()
+      update_attrs = %{camera_address: "some updated camera_address", camera_password: "some updated camera_password", camera_url: "some updated camera_url"}
+
+      assert {:ok, %Camera{} = camera} = Accounts.update_camera(camera, update_attrs)
+      assert camera.camera_address == "some updated camera_address"
+      assert camera.camera_password == "some updated camera_password"
+      assert camera.camera_url == "some updated camera_url"
+    end
+
+    test "update_camera/2 with invalid data returns error changeset" do
+      camera = camera_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_camera(camera, @invalid_attrs)
+      assert camera == Accounts.get_camera!(camera.id)
+    end
+
+    test "delete_camera/1 deletes the camera" do
+      camera = camera_fixture()
+      assert {:ok, %Camera{}} = Accounts.delete_camera(camera)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_camera!(camera.id) end
+    end
+
+    test "change_camera/1 returns a camera changeset" do
+      camera = camera_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_camera(camera)
+    end
+  end
+
+  describe "plate" do
+    alias Scan.Accounts.Plate
+
+    import Scan.AccountsFixtures
+
+    @invalid_attrs %{plate_color: nil, plate_img: nil, plate_number: nil}
+
+    test "list_plate/0 returns all plate" do
+      plate = plate_fixture()
+      assert Accounts.list_plate() == [plate]
+    end
+
+    test "get_plate!/1 returns the plate with given id" do
+      plate = plate_fixture()
+      assert Accounts.get_plate!(plate.id) == plate
+    end
+
+    test "create_plate/1 with valid data creates a plate" do
+      valid_attrs = %{plate_color: "some plate_color", plate_img: "some plate_img", plate_number: "some plate_number"}
+
+      assert {:ok, %Plate{} = plate} = Accounts.create_plate(valid_attrs)
+      assert plate.plate_color == "some plate_color"
+      assert plate.plate_img == "some plate_img"
+      assert plate.plate_number == "some plate_number"
+    end
+
+    test "create_plate/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_plate(@invalid_attrs)
+    end
+
+    test "update_plate/2 with valid data updates the plate" do
+      plate = plate_fixture()
+      update_attrs = %{plate_color: "some updated plate_color", plate_img: "some updated plate_img", plate_number: "some updated plate_number"}
+
+      assert {:ok, %Plate{} = plate} = Accounts.update_plate(plate, update_attrs)
+      assert plate.plate_color == "some updated plate_color"
+      assert plate.plate_img == "some updated plate_img"
+      assert plate.plate_number == "some updated plate_number"
+    end
+
+    test "update_plate/2 with invalid data returns error changeset" do
+      plate = plate_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_plate(plate, @invalid_attrs)
+      assert plate == Accounts.get_plate!(plate.id)
+    end
+
+    test "delete_plate/1 deletes the plate" do
+      plate = plate_fixture()
+      assert {:ok, %Plate{}} = Accounts.delete_plate(plate)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_plate!(plate.id) end
+    end
+
+    test "change_plate/1 returns a plate changeset" do
+      plate = plate_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_plate(plate)
+    end
+  end
 end
