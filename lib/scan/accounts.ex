@@ -8,6 +8,7 @@ defmodule Scan.Accounts do
 
   alias Scan.Accounts.User
   alias Scan.Accounts.Camera
+  alias Scan.Accounts.Plate
 
   def get_user!(id), do: Repo.get!(User, id)
   def get_resource_by_id(id), do: Repo.get(User, id)
@@ -35,5 +36,27 @@ defmodule Scan.Accounts do
     params
     |> Camera.create_changeset()
     |> Repo.insert()
+  end
+
+  def create_plate(params) do
+    params
+    |> Plate.create_changeset()
+    |> Repo.insert()
+  end
+
+  def get_camera_by_id(id) do
+    Camera
+    |> where(id: ^id)
+    |> Repo.one()
+    |> case do
+      nil -> :error
+      camera -> {:ok, camera}
+    end
+  end
+
+  def update_camera(camera, params) do
+    camera
+    |> Camera.update_changeset(params)
+    |> Repo.update()
   end
 end

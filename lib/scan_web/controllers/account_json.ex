@@ -22,4 +22,14 @@ defmodule ScanWeb.AccountJSON do
       camera_url: camera.camera_url
     }
   end
+
+  def show_plate(%{plate: plate}) do
+    %{
+      plate_id: plate.id,
+      plate_color: plate.plate_color,
+      plate_img: plate.plate_img,
+      plate_number: plate.plate_number,
+      camera_id: plate.camera_id
+    }
+  end
 end

@@ -19,4 +19,10 @@ defmodule Scan.Accounts.Plate do
     |> cast(attrs, [:plate_number, :plate_color, :plate_img])
     |> validate_required([:plate_number, :plate_color, :plate_img])
   end
+
+  def create_changeset(params) do
+    %__MODULE__{}
+    |> cast(params, [:plate_number, :plate_color, :plate_img, :camera_id])
+    |> validate_required([:plate_number, :plate_color, :plate_img, :camera_id])
+  end
 end

@@ -19,11 +19,13 @@ defmodule ScanWeb.Router do
   scope "/api", ScanWeb do
     pipe_through [:api, :auth]
     get "/accounts/current", AccountController, :current
+    post "/accounts/add_camera", AccountController, :add_camera
   end
 
   scope "/api", ScanWeb do
     pipe_through :api
     post "/admin/camera", AccountController, :create_camera
+    post "/admin/plate/", AccountController, :create_plate
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

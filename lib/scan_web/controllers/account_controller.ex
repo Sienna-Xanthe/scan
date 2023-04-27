@@ -46,4 +46,25 @@ defmodule ScanWeb.AccountController do
       |> render(:show_camera, camera: camera)
     end
   end
+
+  def create_plate(conn, %{"plate" => params}) do
+    with {:ok, plate} <- Accounts.create_plate(params) do
+      conn
+      |> put_status(:created)
+      |> render(:show_plate, plate: plate)
+    end
+  end
+
+  def add_camera(conn, %{"camera_id" => camera_id, "camera_password" => camera_password}) do
+    with {:ok, camera} <- Accounts.get_camera_by_id(camera_id),
+         true <- Bcrypt.verify_pass(camera_password, camera.camera_password),
+         {:ok, user} <- Accounts.update_camera(camera, %{user_id: conn.assigns[:user].id}) do
+      conn
+      |> put_status(:created)
+      |> render(:show_camera, camera: camera)
+    else
+      _error ->
+        raise ErrorResponse.Unauthorized, message: "Camera id or password incorrect"
+    end
+  end
 end
