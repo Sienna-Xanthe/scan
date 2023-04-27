@@ -1,5 +1,18 @@
 defmodule ScanWeb.Router do
   use ScanWeb, :router
+  use Plug.ErrorHandler
+
+  def handle_errors(conn, params) do
+    handle_errors_format(conn, params)
+  end
+
+  defp handle_errors_format(conn, %{reason: %Phoenix.Router.NoRouteError{message: message}}) do
+    conn |> json(%{errors: message}) |> halt()
+  end
+
+  defp handle_errors_format(conn, %{reason: %{message: message}}) do
+    conn |> json(%{errors: message}) |> halt()
+  end
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -20,6 +33,7 @@ defmodule ScanWeb.Router do
     pipe_through [:api, :auth]
     get "/accounts/current", AccountController, :current
     post "/accounts/add_camera", AccountController, :add_camera
+    post "/accounts/update_camera", AccountController, :update_camera
   end
 
   scope "/api", ScanWeb do

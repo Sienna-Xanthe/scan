@@ -38,4 +38,10 @@ defmodule Scan.Accounts.Camera do
     |> delete_change(:password)
     |> IO.inspect()
   end
+
+  def update_changeset(camera, params) do
+    camera
+    |> cast(params, [:camera_address, :camera_url, :camera_password, :user_id])
+    |> validate_required([:camera_address, :camera_url, :camera_password, :user_id])
+  end
 end
