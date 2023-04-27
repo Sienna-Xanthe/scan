@@ -77,7 +77,11 @@ defmodule Scan.AccountsTest do
     end
 
     test "create_camera/1 with valid data creates a camera" do
-      valid_attrs = %{camera_address: "some camera_address", camera_password: "some camera_password", camera_url: "some camera_url"}
+      valid_attrs = %{
+        camera_address: "some camera_address",
+        camera_password: "some camera_password",
+        camera_url: "some camera_url"
+      }
 
       assert {:ok, %Camera{} = camera} = Accounts.create_camera(valid_attrs)
       assert camera.camera_address == "some camera_address"
@@ -91,7 +95,12 @@ defmodule Scan.AccountsTest do
 
     test "update_camera/2 with valid data updates the camera" do
       camera = camera_fixture()
-      update_attrs = %{camera_address: "some updated camera_address", camera_password: "some updated camera_password", camera_url: "some updated camera_url"}
+
+      update_attrs = %{
+        camera_address: "some updated camera_address",
+        camera_password: "some updated camera_password",
+        camera_url: "some updated camera_url"
+      }
 
       assert {:ok, %Camera{} = camera} = Accounts.update_camera(camera, update_attrs)
       assert camera.camera_address == "some updated camera_address"
@@ -135,7 +144,11 @@ defmodule Scan.AccountsTest do
     end
 
     test "create_plate/1 with valid data creates a plate" do
-      valid_attrs = %{plate_color: "some plate_color", plate_img: "some plate_img", plate_number: "some plate_number"}
+      valid_attrs = %{
+        plate_color: "some plate_color",
+        plate_img: "some plate_img",
+        plate_number: "some plate_number"
+      }
 
       assert {:ok, %Plate{} = plate} = Accounts.create_plate(valid_attrs)
       assert plate.plate_color == "some plate_color"
@@ -149,7 +162,12 @@ defmodule Scan.AccountsTest do
 
     test "update_plate/2 with valid data updates the plate" do
       plate = plate_fixture()
-      update_attrs = %{plate_color: "some updated plate_color", plate_img: "some updated plate_img", plate_number: "some updated plate_number"}
+
+      update_attrs = %{
+        plate_color: "some updated plate_color",
+        plate_img: "some updated plate_img",
+        plate_number: "some updated plate_number"
+      }
 
       assert {:ok, %Plate{} = plate} = Accounts.update_plate(plate, update_attrs)
       assert plate.plate_color == "some updated plate_color"
