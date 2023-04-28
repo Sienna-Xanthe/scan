@@ -32,15 +32,15 @@ defmodule Scan.Accounts do
   @doc """
   camera
   """
+  def list_camera(user_id) do
+    Camera
+    |> where(user_id: ^user_id)
+    |> Repo.all()
+  end
+
   def create_camera(params) do
     params
     |> Camera.create_changeset()
-    |> Repo.insert()
-  end
-
-  def create_plate(params) do
-    params
-    |> Plate.create_changeset()
     |> Repo.insert()
   end
 
@@ -58,5 +58,14 @@ defmodule Scan.Accounts do
     camera
     |> Camera.update_changeset(params)
     |> Repo.update()
+  end
+
+  @doc """
+  plate
+  """
+  def create_plate(params) do
+    params
+    |> Plate.create_changeset()
+    |> Repo.insert()
   end
 end

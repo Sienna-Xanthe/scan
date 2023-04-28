@@ -14,6 +14,10 @@ defmodule ScanWeb.AccountJSON do
     }
   end
 
+  def index_camera(%{cameras: cameras}) do
+    %{data: for(camera <- cameras, do: show_camera(%{camera: camera}))}
+  end
+
   def show_camera(%{camera: camera}) do
     %{
       camera_id: camera.id,

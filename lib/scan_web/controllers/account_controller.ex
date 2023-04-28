@@ -79,4 +79,12 @@ defmodule ScanWeb.AccountController do
         raise ErrorResponse.Unauthorized, message: "Camera id or params incorrect"
     end
   end
+
+  def index_camera(conn, %{}) do
+    with cameras <- Accounts.list_camera(conn.assigns[:user].id) do
+      conn
+      |> put_status(:ok)
+      |> render(:index_camera, cameras: cameras)
+    end
+  end
 end

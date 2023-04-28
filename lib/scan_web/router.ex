@@ -32,8 +32,14 @@ defmodule ScanWeb.Router do
   scope "/api", ScanWeb do
     pipe_through [:api, :auth]
     get "/accounts/current", AccountController, :current
+  end
+
+  scope "/api", ScanWeb do
+    pipe_through [:api, :auth]
     post "/accounts/add_camera", AccountController, :add_camera
     post "/accounts/update_camera", AccountController, :update_camera
+    get "/accounts/camera", AccountController, :index_camera
+    get "/accounts/camera/:camera", AccountController, :show_camera
   end
 
   scope "/api", ScanWeb do
