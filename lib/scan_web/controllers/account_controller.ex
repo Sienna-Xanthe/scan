@@ -95,4 +95,14 @@ defmodule ScanWeb.AccountController do
     |> put_status(:ok)
     |> render(:index_camera, cameras: user.camera)
   end
+
+  ## 展示当前用户的所有车牌记录
+  def index_plate(conn, %{}) do
+    user = conn.assigns[:user]
+    cameras = user.camera
+    plates = Enum.flat_map(cameras, fn camera -> Accounts.index_plate(camera.id) end)
+    conn
+    |> put_status(:ok)
+    |> render(:index_plate, plates: plates)
+  end
 end

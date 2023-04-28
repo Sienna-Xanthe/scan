@@ -27,6 +27,10 @@ defmodule ScanWeb.AccountJSON do
     }
   end
 
+  def index_plate(%{plates: plates}) do
+    %{data: for(plate <- plates, do: show_plate(%{plate: plate}))}
+  end
+
   def show_plate(%{plate: plate}) do
     %{
       plate_id: plate.id,

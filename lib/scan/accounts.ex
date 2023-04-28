@@ -62,4 +62,10 @@ defmodule Scan.Accounts do
     |> Plate.create_changeset()
     |> Repo.insert()
   end
+
+  def index_plate(camera_id) do
+    Plate
+    |> where(camera_id: ^camera_id)
+    |> Repo.all()
+  end
 end
