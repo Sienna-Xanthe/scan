@@ -42,6 +42,12 @@ defmodule ScanWeb.Endpoint do
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
+  plug CORSPlug,
+    origin: ["*"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    headers: ["*"],
+    allow_credentials: true
+
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
