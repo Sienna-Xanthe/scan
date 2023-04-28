@@ -1,6 +1,6 @@
 defmodule ScanWeb.Auth.SetAccount do
   @moduledoc """
-  Set account for Forum
+  设置账户信息
   """
   import Plug.Conn
   alias Scan.Repo
@@ -11,7 +11,6 @@ defmodule ScanWeb.Auth.SetAccount do
     case conn.assigns[:user] do
       nil ->
         user = Repo.preload(conn.private.guardian_default_resource, [:camera])
-        IO.inspect(user)
         assign(conn, :user, user)
 
       _user ->

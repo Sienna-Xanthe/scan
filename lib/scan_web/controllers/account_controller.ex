@@ -17,10 +17,12 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 登陆账户
   def signin(conn, %{"email" => email, "password" => password}) do
     authorize_account(conn, email, password)
   end
 
+  ## 生成token
   defp authorize_account(conn, email, password) do
     case Guardian.authenticate(email, password) do
       {:ok, user, token} ->
@@ -33,12 +35,14 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 展示当前用户信息
   def current(conn, %{}) do
     conn
     |> put_status(:ok)
     |> render(:show, user: conn.assigns[:user])
   end
 
+  ## 初始化摄像头，也就是数据库插入设备
   def create_camera(conn, %{"camera" => params}) do
     with {:ok, camera} <- Accounts.create_camera(params) do
       conn
@@ -47,6 +51,7 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 初始化车牌，也就是数据库插入车牌记录
   def create_plate(conn, %{"plate" => params}) do
     with {:ok, plate} <- Accounts.create_plate(params) do
       conn
@@ -55,6 +60,7 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 用户添加设备
   def add_camera(conn, %{"camera_id" => camera_id, "camera_password" => camera_password}) do
     with {:ok, camera} <- Accounts.get_camera_by_id(camera_id),
          true <- Bcrypt.verify_pass(camera_password, camera.camera_password),
@@ -68,6 +74,7 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 用户操作设备，包括修改密码、地址，解绑之类的
   def update_camera(conn, %{"camera_id" => camera_id, "params" => params}) do
     with {:ok, camera} <- Accounts.get_camera_by_id(camera_id),
          {:ok, camera} <- Accounts.update_camera(camera, params) do
@@ -80,11 +87,12 @@ defmodule ScanWeb.AccountController do
     end
   end
 
+  ## 展示当前用户的所有设备信息
   def index_camera(conn, %{}) do
-    with cameras <- Accounts.list_camera(conn.assigns[:user].id) do
-      conn
-      |> put_status(:ok)
-      |> render(:index_camera, cameras: cameras)
-    end
+    user = conn.assigns[:user]
+
+    conn
+    |> put_status(:ok)
+    |> render(:index_camera, cameras: user.camera)
   end
 end

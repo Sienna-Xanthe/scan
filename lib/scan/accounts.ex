@@ -32,12 +32,6 @@ defmodule Scan.Accounts do
   @doc """
   camera
   """
-  def list_camera(user_id) do
-    Camera
-    |> where(user_id: ^user_id)
-    |> Repo.all()
-  end
-
   def create_camera(params) do
     params
     |> Camera.create_changeset()
