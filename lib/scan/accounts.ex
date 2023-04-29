@@ -57,6 +57,8 @@ defmodule Scan.Accounts do
   @doc """
   plate
   """
+  def get_plate!(id), do: Repo.get!(Plate, id)
+
   def create_plate(params) do
     params
     |> Plate.create_changeset()
@@ -67,5 +69,9 @@ defmodule Scan.Accounts do
     Plate
     |> where(camera_id: ^camera_id)
     |> Repo.all()
+  end
+
+  def delete_plate(%Plate{} = plate) do
+    Repo.delete(plate)
   end
 end

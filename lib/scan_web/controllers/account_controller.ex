@@ -106,4 +106,15 @@ defmodule ScanWeb.AccountController do
     |> put_status(:ok)
     |> render(:index_plate, plates: plates)
   end
+
+  ## 删除车牌记录
+  def delete_plate(conn, %{"plate_id" => plate_id}) do
+    plate = Accounts.get_plate!(plate_id)
+
+    with {:ok, plate} <- Accounts.delete_plate(plate) do
+      conn
+      |> put_status(:ok)
+      |> render(:show_plate, plate: plate)
+    end
+  end
 end

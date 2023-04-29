@@ -46,7 +46,7 @@ defmodule ScanWeb.Router do
     pipe_through [:api, :auth]
     get "/accounts/plate", AccountController, :index_plate
     get "/accounts/plate/:plate", AccountController, :show_plate
-    delete "/accounts/plate/:plate", AccountController, :delete_plate
+    delete "/accounts/plate/:plate_id", AccountController, :delete_plate
   end
 
   scope "/api", ScanWeb do
