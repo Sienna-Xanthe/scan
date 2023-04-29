@@ -192,4 +192,62 @@ defmodule Scan.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_plate(plate)
     end
   end
+
+  describe "user_tokens" do
+    alias Scan.Accounts.User_Token
+
+    import Scan.AccountsFixtures
+
+    @invalid_attrs %{context: nil, sent_to: nil, token: nil}
+
+    test "list_user_tokens/0 returns all user_tokens" do
+      user__token = user__token_fixture()
+      assert Accounts.list_user_tokens() == [user__token]
+    end
+
+    test "get_user__token!/1 returns the user__token with given id" do
+      user__token = user__token_fixture()
+      assert Accounts.get_user__token!(user__token.id) == user__token
+    end
+
+    test "create_user__token/1 with valid data creates a user__token" do
+      valid_attrs = %{context: "some context", sent_to: "some sent_to", token: "some token"}
+
+      assert {:ok, %User_Token{} = user__token} = Accounts.create_user__token(valid_attrs)
+      assert user__token.context == "some context"
+      assert user__token.sent_to == "some sent_to"
+      assert user__token.token == "some token"
+    end
+
+    test "create_user__token/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user__token(@invalid_attrs)
+    end
+
+    test "update_user__token/2 with valid data updates the user__token" do
+      user__token = user__token_fixture()
+      update_attrs = %{context: "some updated context", sent_to: "some updated sent_to", token: "some updated token"}
+
+      assert {:ok, %User_Token{} = user__token} = Accounts.update_user__token(user__token, update_attrs)
+      assert user__token.context == "some updated context"
+      assert user__token.sent_to == "some updated sent_to"
+      assert user__token.token == "some updated token"
+    end
+
+    test "update_user__token/2 with invalid data returns error changeset" do
+      user__token = user__token_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_user__token(user__token, @invalid_attrs)
+      assert user__token == Accounts.get_user__token!(user__token.id)
+    end
+
+    test "delete_user__token/1 deletes the user__token" do
+      user__token = user__token_fixture()
+      assert {:ok, %User_Token{}} = Accounts.delete_user__token(user__token)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user__token!(user__token.id) end
+    end
+
+    test "change_user__token/1 returns a user__token changeset" do
+      user__token = user__token_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_user__token(user__token)
+    end
+  end
 end

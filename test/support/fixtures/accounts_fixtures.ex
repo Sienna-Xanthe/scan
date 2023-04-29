@@ -50,4 +50,20 @@ defmodule Scan.AccountsFixtures do
 
     plate
   end
+
+  @doc """
+  Generate a user__token.
+  """
+  def user__token_fixture(attrs \\ %{}) do
+    {:ok, user__token} =
+      attrs
+      |> Enum.into(%{
+        context: "some context",
+        sent_to: "some sent_to",
+        token: "some token"
+      })
+      |> Scan.Accounts.create_user__token()
+
+    user__token
+  end
 end

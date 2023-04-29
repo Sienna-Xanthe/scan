@@ -48,6 +48,10 @@ config :guardian, Guardian.DB,
   schema_name: "guardian_tokens",
   sweep_interval: 60
 
+config :scan, Scan.Mailer,
+  adapter: Swoosh.Adapters.Sendinblue,
+  api_key: "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"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

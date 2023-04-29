@@ -6,6 +6,7 @@ defmodule Scan.Repo.Migrations.CreateUsers do
       add :id, :binary_id, primary_key: true
       add :email, :string
       add :hash_password, :string
+      add :validated, :boolean, default: false, null: false
 
       timestamps()
     end

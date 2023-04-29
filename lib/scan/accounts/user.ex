@@ -8,6 +8,7 @@ defmodule Scan.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true
     field :hash_password, :string
+    field :validated, :boolean, default: false
 
     has_many :camera, Scan.Accounts.Camera
     timestamps()
