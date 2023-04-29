@@ -22,13 +22,14 @@ defmodule Scan.Accounts.UserToken do
 
   defp build_hashed_token(user, context, sent_to) do
     token = Phoenix.Token.encrypt(ScanWeb.Endpoint, "user_token", user.email)
+
     {token,
-    %Scan.Accounts.UserToken{
-      token: token,
-      context: context,
-      sent_to: sent_to,
-      user_id: user.id
-    }}
+     %Scan.Accounts.UserToken{
+       token: token,
+       context: context,
+       sent_to: sent_to,
+       user_id: user.id
+     }}
 
     # token = :crypto.strong_rand_bytes(@rand_size)
     # hashed_token = :crypto.hash(@hash_algorithm, token)

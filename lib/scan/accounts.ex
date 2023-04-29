@@ -2,7 +2,7 @@ defmodule Scan.Accounts do
   @moduledoc """
   The Accounts context.
   """
-  @base_url System.get_env("RENDER_EXTERNAL_HOSTNAME") || System.get_env("PHX_HOST") || "http://127.0.0.1:4000"
+  @base_url System.get_env("RENDER_EXTERNAL_HOSTNAME") || "http://123.60.162.97:4000"
 
   import Ecto.Query, warn: false
   alias Scan.Repo

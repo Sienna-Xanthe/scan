@@ -19,7 +19,7 @@ defmodule ScanWeb.AccountController do
     end
   end
 
-  def confirm(conn , %{"token" => token}) do
+  def confirm(conn, %{"token" => token}) do
     with user_token <- Accounts.confirm_user(token),
          {:ok, user} <- Accounts.confirm_update_user(user_token.sent_to) do
       conn

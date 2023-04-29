@@ -22,6 +22,7 @@ defmodule ScanWeb.Router do
     plug ScanWeb.Auth.Pipeline
     plug ScanWeb.Auth.SetAccount
   end
+
   scope "/", ScanWeb do
     pipe_through :api
     get "/confirm/:token", AccountController, :confirm

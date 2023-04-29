@@ -225,9 +225,16 @@ defmodule Scan.AccountsTest do
 
     test "update_user__token/2 with valid data updates the user__token" do
       user__token = user__token_fixture()
-      update_attrs = %{context: "some updated context", sent_to: "some updated sent_to", token: "some updated token"}
 
-      assert {:ok, %User_Token{} = user__token} = Accounts.update_user__token(user__token, update_attrs)
+      update_attrs = %{
+        context: "some updated context",
+        sent_to: "some updated sent_to",
+        token: "some updated token"
+      }
+
+      assert {:ok, %User_Token{} = user__token} =
+               Accounts.update_user__token(user__token, update_attrs)
+
       assert user__token.context == "some updated context"
       assert user__token.sent_to == "some updated sent_to"
       assert user__token.token == "some updated token"
@@ -235,7 +242,10 @@ defmodule Scan.AccountsTest do
 
     test "update_user__token/2 with invalid data returns error changeset" do
       user__token = user__token_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_user__token(user__token, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.update_user__token(user__token, @invalid_attrs)
+
       assert user__token == Accounts.get_user__token!(user__token.id)
     end
 
