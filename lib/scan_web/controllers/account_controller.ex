@@ -12,16 +12,35 @@ defmodule ScanWeb.AccountController do
   def signup(conn, %{"user" => params}) do
     with {:ok, user} <- Accounts.create(params) do
       Accounts.deliver_confirmation(user)
-      
+
       conn
       |> put_status(:created)
       |> render(:show, user: user)
     end
   end
 
+  def confirm(conn , %{"token" => token}) do
+    with user_token <- Accounts.confirm_user(token),
+         {:ok, user} <- Accounts.confirm_update_user(user_token.sent_to) do
+      conn
+      |> put_status(:ok)
+      |> render(:show, user: user)
+    end
+  end
+
   ## 登陆账户
   def signin(conn, %{"email" => email, "password" => password}) do
-    authorize_account(conn, email, password)
+    case Accounts.get_user_by_email(email) do
+      :error ->
+        raise ErrorResponse.Unauthorized, message: "Email or password incorrect"
+
+      {:ok, user} ->
+        if user.validated do
+          authorize_account(conn, email, password)
+        else
+          raise ErrorResponse.Unauthorized, message: "Email not confirmed"
+        end
+    end
   end
 
   ## 生成token

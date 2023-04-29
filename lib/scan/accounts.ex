@@ -28,10 +28,10 @@ defmodule Scan.Accounts do
   defp confirm_url(type, token) do
     case type do
       :confirm ->
-        @base_url <> "confirm/#{token}"
+        @base_url <> "/confirm/#{token}"
 
       :reset ->
-        @base_url <> "reset/#{token}"
+        @base_url <> "/reset/#{token}"
     end
   end
 
@@ -49,6 +49,20 @@ defmodule Scan.Accounts do
       nil -> :error
       user -> {:ok, user}
     end
+  end
+
+  def confirm_user(token) do
+    UserToken
+    |> where(token: ^token)
+    |> Repo.one()
+  end
+
+  def confirm_update_user(email) do
+    User
+    |> where(email: ^email)
+    |> Repo.one()
+    |> User.update_changeset(%{validated: true})
+    |> Repo.update()
   end
 
   @doc """

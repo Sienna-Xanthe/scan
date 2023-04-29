@@ -14,6 +14,12 @@ defmodule Scan.Accounts.User do
     timestamps()
   end
 
+  def update_changeset(user, params) do
+    user
+    |> cast(params, [:validated])
+    |> validate_required([:validated])
+  end
+
   def signup_changeset(params) do
     %__MODULE__{}
     |> cast(params, [:email, :password])
