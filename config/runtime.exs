@@ -23,12 +23,11 @@ import Config
 ## 显示设置环境为发布
 config :scan, ScanWeb.Endpoint, server: true
 
-# config :scan, Scan.Mailer,
-#   adapter: Swoosh.Adapters.Mailgun,
-#   api_key: System.get_env("MAILGUN_API_KEY"),
-#   domain: System.get_env("MAILGUN_DOMAIN")
+config :scan, Scan.Mailer,
+  adapter: Swoosh.Adapters.Sendinblue,
+  api_key: System.get_env("MAILGUN_API_KEY")
 
-# config :swoosh, :api_client, Swoosh.ApiClient.Finch
+config :swoosh, :api_client, Swoosh.ApiClient.Finch
 
 if config_env() == :prod do
   database_url =
